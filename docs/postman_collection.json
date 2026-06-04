@@ -1,0 +1,288 @@
+{
+  "info": {
+    "name": "AI Study Buddy - Laravel API",
+    "description": "Postman collection lengkap untuk testing semua endpoint API AI Study Buddy. Jalankan Laravel dulu dengan `php artisan serve`, lalu set variable base_url.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "material_id", "value": "" },
+    { "key": "document_id", "value": "" },
+    { "key": "history_id", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "General",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Materials (CRUD)",
+      "item": [
+        {
+          "name": "Create Material",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Konsep Dasar AI\",\n  \"subject\": \"Kecerdasan Buatan\",\n  \"content\": \"Artificial Intelligence adalah cabang ilmu komputer yang membuat mesin mampu melakukan tugas yang biasanya membutuhkan kecerdasan manusia, seperti memahami bahasa, mengenali pola, dan mengambil keputusan. Machine learning merupakan bagian dari AI yang membuat sistem belajar dari data.\"\n}"
+            },
+            "url": "{{base_url}}/api/materials"
+          }
+        },
+        {
+          "name": "List Materials",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/materials"
+          }
+        },
+        {
+          "name": "Get Material by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/materials/{{material_id}}"
+          }
+        },
+        {
+          "name": "Delete Material",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/materials/{{material_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Features",
+      "item": [
+        {
+          "name": "AI Summarize + Save",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Konsep Dasar AI\",\n  \"subject\": \"Kecerdasan Buatan\",\n  \"content\": \"Artificial Intelligence adalah cabang ilmu komputer yang membuat mesin mampu melakukan tugas yang biasanya membutuhkan kecerdasan manusia, seperti memahami bahasa, mengenali pola, dan mengambil keputusan. Machine learning merupakan bagian dari AI yang membuat sistem belajar dari data.\",\n  \"save\": true\n}"
+            },
+            "url": "{{base_url}}/api/ai/summarize"
+          }
+        },
+        {
+          "name": "AI Quiz by Material ID",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"material_id\": \"{{material_id}}\",\n  \"total_questions\": 5\n}"
+            },
+            "url": "{{base_url}}/api/ai/quiz"
+          }
+        },
+        {
+          "name": "AI Quiz by Text",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Konsep Dasar AI\",\n  \"subject\": \"Kecerdasan Buatan\",\n  \"content\": \"Artificial Intelligence adalah cabang ilmu komputer yang membuat mesin mampu melakukan tugas yang biasanya membutuhkan kecerdasan manusia, seperti memahami bahasa, mengenali pola, dan mengambil keputusan. Machine learning merupakan bagian dari AI yang membuat sistem belajar dari data.\",\n  \"instruction\": \"buat 10 pilihan ganda dan 5 essay\",\n  \"total_questions\": 15,\n  \"question_type\": \"campuran\",\n  \"multiple_choice_count\": 10,\n  \"essay_count\": 5\n}"
+            },
+            "url": "{{base_url}}/api/ai/quiz"
+          }
+        },
+        {
+          "name": "AI Study Plan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Konsep Dasar AI\",\n  \"subject\": \"Kecerdasan Buatan\",\n  \"content\": \"Artificial Intelligence adalah cabang ilmu komputer yang membuat mesin mampu melakukan tugas yang biasanya membutuhkan kecerdasan manusia, seperti memahami bahasa, mengenali pola, dan mengambil keputusan.\",\n  \"deadline\": \"2026-06-09\"\n}"
+            },
+            "url": "{{base_url}}/api/ai/study-plan"
+          }
+        },
+        {
+          "name": "AI Chat by Text",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Artificial Intelligence membantu mahasiswa belajar dengan merangkum materi, membuat latihan soal, menjawab pertanyaan berdasarkan catatan, dan menyusun rencana belajar bertahap.\",\n  \"message\": \"Apa manfaat utama materi ini?\",\n  \"history\": []\n}"
+            },
+            "url": "{{base_url}}/api/ai/chat"
+          }
+        },
+        {
+          "name": "AI History (Login Required)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/ai/history"
+          }
+        },
+        {
+          "name": "AI History Detail (Login Required)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/ai/history/{{history_id}}"
+          }
+        },
+        {
+          "name": "Continue AI History (Login Required)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Lanjutkan dengan 5 soal essay tambahan\"\n}"
+            },
+            "url": "{{base_url}}/api/ai/history/{{history_id}}/continue"
+          }
+        },
+        {
+          "name": "AI Web Search",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/ai/web-search?query=konsep%20dasar%20kecerdasan%20buatan"
+          }
+        },
+        {
+          "name": "Delete All AI History (Login Required)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/ai/history/all"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Documents (Upload)",
+      "item": [
+        {
+          "name": "Upload Document (TXT)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Buku Kecerdasan Buatan", "type": "text" },
+                { "key": "subject", "value": "Kecerdasan Buatan", "type": "text" },
+                { "key": "file", "type": "file", "src": "" }
+              ]
+            },
+            "url": "{{base_url}}/api/documents"
+          }
+        },
+        {
+          "name": "Upload with OCR Text",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Foto Materi AI", "type": "text" },
+                { "key": "subject", "value": "Kecerdasan Buatan", "type": "text" },
+                { "key": "ocr_text", "value": "Artificial Intelligence adalah cabang ilmu komputer yang membuat mesin mampu melakukan tugas yang biasanya membutuhkan kecerdasan manusia.", "type": "text" }
+              ]
+            },
+            "url": "{{base_url}}/api/documents"
+          }
+        },
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/documents"
+          }
+        },
+        {
+          "name": "Get Document by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/documents/{{document_id}}"
+          }
+        },
+        {
+          "name": "Delete Document",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/documents/{{document_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Document Chat",
+      "item": [
+        {
+          "name": "Chat with Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Ringkas bab 1 dari materi ini\",\n  \"chapter\": \"\"\n}"
+            },
+            "url": "{{base_url}}/api/documents/{{document_id}}/chat"
+          }
+        },
+        {
+          "name": "Summarize Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chapter\": \"\"\n}"
+            },
+            "url": "{{base_url}}/api/documents/{{document_id}}/summarize"
+          }
+        },
+        {
+          "name": "Quiz from Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chapter\": \"\",\n  \"instruction\": \"buat 10 pilihan ganda dan 5 essay\",\n  \"total_questions\": 15,\n  \"question_type\": \"campuran\",\n  \"multiple_choice_count\": 10,\n  \"essay_count\": 5\n}"
+            },
+            "url": "{{base_url}}/api/documents/{{document_id}}/quiz"
+          }
+        },
+        {
+          "name": "Study Plan from Document",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"chapter\": \"\"\n}"
+            },
+            "url": "{{base_url}}/api/documents/{{document_id}}/study-plan"
+          }
+        },
+        {
+          "name": "Document Chat History (Login Required)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/documents/{{document_id}}/history"
+          }
+        }
+      ]
+    }
+  ]
+}
